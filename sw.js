@@ -1,7 +1,7 @@
 // Guarda os arquivos do app para abrir rápido e funcionar como app instalado.
 // Ao mudar o app, aumente o número da versão abaixo.
-const VERSAO = 'financas-v2';
-const ARQUIVOS = ['./', 'index.html', 'styles.css', 'app.js', 'config.js', 'manifest.webmanifest', 'icons/icon-192.png'];
+const VERSAO = 'financas-v3';
+const ARQUIVOS = ['./', 'index.html', 'styles.css', 'app.js', 'config.js', 'manifest.webmanifest', 'icons/app-192.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSAO).then(c => c.addAll(ARQUIVOS)).then(() => self.skipWaiting()));
