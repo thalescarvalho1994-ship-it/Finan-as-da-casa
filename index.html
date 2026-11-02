@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Finanças da Casa</title>
+<meta name="theme-color" content="#1E6A50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Finanças">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Tela de login -->
+<section class="auth" id="vAuth" hidden>
+  <h1>Finanças da Casa</h1>
+  <p id="authSub">Entre com seu e-mail e senha.</p>
+  <form id="authForm" style="display:flex;flex-direction:column;gap:12px">
+    <label>E-mail<input type="email" id="aEmail" autocomplete="email" required></label>
+    <label>Senha<input type="password" id="aSenha" autocomplete="current-password" minlength="6" required></label>
+    <button class="btn" id="aBtn">Entrar</button>
+    <div class="err" id="aErr"></div>
+  </form>
+  <button class="link" id="aToggle">Ainda não tenho conta. Criar conta</button>
+</section>
+
+<!-- Tela de criar ou entrar na casa -->
+<section class="auth" id="vCasa" hidden>
+  <h1>Sua casa</h1>
+  <p>Uma pessoa cria a casa e passa o código de convite para a outra.</p>
+  <label>Seu nome<input type="text" id="hNome" maxlength="24" placeholder="Ex.: Thales"></label>
+  <button class="btn" id="hCriar">Criar nossa casa</button>
+  <div class="or">ou</div>
+  <label>Código de convite<input type="text" id="hCodigo" maxlength="6" placeholder="ABC123" style="text-transform:uppercase;letter-spacing:.15em"></label>
+  <button class="btn ghost" id="hEntrar">Entrar com o código</button>
+  <div class="err" id="hErr"></div>
+  <button class="link" id="hSair">Sair desta conta</button>
+</section>
+
+<!-- App -->
+<div class="app" id="vApp" hidden>
+  <header class="top">
+    <div class="brand">Finanças da Casa<small>Livro-caixa do casal</small></div>
+    <div class="toprt">
+      <div class="mes"><button id="prev" aria-label="Mês anterior">‹</button><span id="mesLabel"></span><button id="next" aria-label="Próximo mês">›</button></div>
+      <button class="iconbtn" id="btnAjustes" aria-label="Ajustes">⚙</button>
+    </div>
+  </header>
+  <div id="note" class="note" hidden></div>
+  <section class="resumo" aria-label="Resumo do mês">
+    <div class="stat"><span class="lbl">Entrou</span><span class="val c-in" id="sIn">–</span><span class="sub" id="sInSub">&nbsp;</span></div>
+    <div class="stat"><span class="lbl">Saiu</span><span class="val c-out" id="sOut">–</span><span class="sub" id="sOutSub">&nbsp;</span></div>
+    <div class="stat"><span class="lbl">Sobrou</span><span class="val" id="sBal">–</span><span class="sub">no mês</span></div>
+    <div class="stat"><span class="lbl">Taxa de poupança</span><span class="val" id="sRate">–</span><span class="sub">meta: 20% ou mais</span></div>
+  </section>
+  <ul class="insights" id="insights"></ul>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="lanc" aria-selected="true">Lançamentos</button>
+    <button role="tab" data-tab="orc" aria-selected="false">Orçamento</button>
+    <button role="tab" data-tab="contas" aria-selected="false">Contas a pagar</button>
+    <button role="tab" data-tab="metas" aria-selected="false">Metas</button>
+    <button role="tab" data-tab="ajustes" aria-selected="false">Ajustes</button>
+  </nav>
+  <section class="panel" id="panel"></section>
+</div>
+<button class="fab" id="fab" hidden>+ Lançar</button>
+
+<div class="sheetbg" id="sheetbg" hidden>
+  <form class="sheet" id="sheet" autocomplete="off">
+    <h3>Novo lançamento</h3>
+    <div class="seg"><button type="button" id="tOut">Gasto</button><button type="button" id="tIn">Entrada</button></div>
+    <label>Valor (R$)<input type="text" inputmode="decimal" id="fValor" class="big" placeholder="0,00" required></label>
+    <label>Descrição<input type="text" id="fDesc" placeholder="Ex.: Mercado da semana" maxlength="80"></label>
+    <div class="two">
+      <label>Categoria<select id="fCat"></select></label>
+      <label>Data<input type="date" id="fData"></label>
+    </div>
+    <label>Quem<select id="fQuem"></select></label>
+    <div class="two"><button type="button" class="btn ghost" id="fCancel">Cancelar</button><button type="submit" class="btn">Salvar</button></div>
+  </form>
+</div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
